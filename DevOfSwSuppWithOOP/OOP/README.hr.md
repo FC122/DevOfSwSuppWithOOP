@@ -311,3 +311,278 @@ Postiže se kroz naslijeđivanje i virtualne metode. Bazna klasa definira virtua
 
 ### Parametarski polimorfizam
 Parametarski polimorfizam se postiže kroz korištenje generičkih tipova. Generički tipovi omogućuju definiranje klasa, struktura ili metoda koji mogu raditi s različitim tipovima podataka, čime se postiže veća fleksibilnost i ponovno korištenje koda. Korištenjem generičkih tipova, programer može stvoriti komponente koje su neovisne o konkretnim tipovima podataka s kojima će raditi. Parametarski polimorfizam omogućuje pisanje općenitih algoritama i struktura podataka koje mogu biti korisne u različitim kontekstima
+
+## Ovisnost
+
+### Ubrizgavanje ovisnosti
+Obrazac koji se koristi u oop-u kako bi se riješio problem ovisnosti između klasa ubrizgavanjem tih ovisnosti izvana, umjesto da klasa stvara svoje ovisnosti unutar sebe. Osnovni cilj DI-ja je postizanje labave povezanosti između klasa, čime se sustav čini modularnim, održivijim i stabilnijim.
+
+#### Ubrizgavanje konstruktorom
+```cs
+// Interface koji definira uslugu
+public interface IService
+{
+    void PerformOperation();
+}
+
+// Implementacija IService sučelja
+public class Service : IService
+{
+    public void PerformOperation()
+    {
+        Console.WriteLine("Operation performed by Service");
+    }
+}
+
+// Klasa koja ovisi o IService sučelju kroz konstruktor
+public class Client
+{
+    private readonly IService _service;
+
+    // Konstruktor koji prima IService implementaciju
+    public Client(IService service)
+    {
+        _service = service;
+    }
+
+    // Metoda koja koristi uslugu IService
+    public void ExecuteOperation()
+    {
+        _service.PerformOperation();
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Instanciranje implementacije IService
+        IService service = new Service();
+
+        // Stvaranje instance klijenta s proslijeđenom implementacijom IService
+        Client client = new Client(service);
+
+        // Izvođenje operacije kroz klijenta
+        client.ExecuteOperation();
+    }
+}
+```
+
+#### Ubrizgavanje metodom
+```cs
+// Interface koji definira uslugu
+public interface IService
+{
+    void PerformOperation();
+}
+
+// Implementacija IService sučelja
+public class Service : IService
+{
+    public void PerformOperation()
+    {
+        Console.WriteLine("Operation performed by Service");
+    }
+}
+
+// Klasa koja ovisi o IService sučelju kroz metodu
+public class Client
+{
+    // Metoda koja prima IService implementaciju kao argument
+    public void ExecuteOperation(IService service)
+    {
+        service.PerformOperation();
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Instanciranje implementacije IService
+        IService service = new Service();
+
+        // Stvaranje instance klijenta i poziv metode s proslijeđenom implementacijom IService
+        Client client = new Client();
+        client.ExecuteOperation(service);
+    }
+}
+```
+
+#### Ubrizgavanje svojstvom
+```cs
+// Interface koji definira uslugu
+public interface IService
+{
+    void PerformOperation();
+}
+
+// Implementacija IService sučelja
+public class Service : IService
+{
+    public void PerformOperation()
+    {
+        Console.WriteLine("Operation performed by Service");
+    }
+}
+
+// Klasa koja ovisi o IService sučelju kroz svojstvo
+public class Client
+{
+    // Javno svojstvo za IService implementaciju
+    public IService Service { get; set; }
+
+    // Metoda koja koristi IService uslugu
+    public void ExecuteOperation()
+    {
+        Service.PerformOperation();
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Instanciranje implementacije IService
+        IService service = new Service();
+
+        // Stvaranje instance klijenta i postavljanje svojstva IService
+        Client client = new Client();
+        client.Service = service;
+
+        // Izvođenje operacije kroz klijenta
+        client.ExecuteOperation();
+    }
+}
+```
+
+### Čvrst sprega
+Javlja se kada su dvije ili više klasa visoko ovisne jedna o drugoj, te promjene u jednoj klasi mogu zahtijevati promjene u drugoj. Ova vrsta povezanosti može otežati održavanje i proširivanje sustava jer promjene u jednoj klasi često zahtijevaju prilagodbe u drugim klasama s kojima je čvrsto povezana. Osnovni cilj u objektno orijentiranom programiranju je smanjiti čvrstu povezanost kako bi se poboljšala modularnost i fleksibilnost sustava.
+```cs
+// Klasa koja predstavlja neku funkcionalnost
+public class Servis
+{
+    // Metoda koja obrađuje neki podatak
+    public void ObaviPosao()
+    {
+        Console.WriteLine("Obavlja se neki posao...");
+    }
+}
+
+// Klasa koja ovisi o funkcionalnosti Servis klase
+public class Klijent
+{
+    private readonly Servis servis;
+
+    // Konstruktor koji stvara čvrstu spregu između Klijent i Servis klase
+    public Klijent()
+    {
+        servis = new Servis();
+    }
+
+    // Metoda koja koristi funkcionalnost Servis klase
+    public void KoristiServis()
+    {
+        servis.ObaviPosao();
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Klijent klijent = new Klijent();
+        klijent.KoristiServis();
+    }
+}
+```
+### Labava sprega
+Javlja se kada su dvije ili više klasa neovisne jedna o drugoj te promjene u jednoj klasi ne zahtijevaju promjene u drugoj. Ova vrsta povezanosti promiče fleksibilnost i olakšava održavanje sustava, jer promjene u jednoj klasi ne bi trebale zahtijevati prilagodbe u drugim klasama s kojima interagira.
+```cs
+// Interface koji definira funkcionalnost
+public interface IServis
+{
+    void ObaviPosao();
+}
+
+// Implementacija IServis sučelja
+public class Servis : IServis
+{
+    public void ObaviPosao()
+    {
+        Console.WriteLine("Obavlja se neki posao...");
+    }
+}
+
+// Klasa koja ovisi o funkcionalnosti Servis klase
+public class Klijent
+{
+    private readonly IServis _servis;
+
+    // Konstruktor koji koristi dependency injection
+    public Klijent(IServis servis)
+    {
+        _servis = servis;
+    }
+
+    // Metoda koja koristi funkcionalnost Servis klase
+    public void KoristiServis()
+    {
+        _servis.ObaviPosao();
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        IServis servis = new Servis();
+        Klijent klijent = new Klijent(servis);
+        klijent.KoristiServis();
+    }
+}
+```
+## Zadaci
+
+### 1. Zadatak
+Implementirajte bankovni sustav koristeći se načelima objektno orijentiranog programiranja. Osim osnovnih funkcionalnosti bankovnog sustava, naglasak je na korištenju sučelja, apstraktnih klasa, virtualnih metoda, apstraktnih metoda, labave spregu, ubrizgavanja ovisnosti, polimorfizma, nasljeđivanja i enkapsulacije.
+
+
+Sučelja koja možete definirati:
+
+- IBankovniRacun: Definira osnovne operacije za upravljanje bankovnim računima.
+- ITransakcija: Definira metode za izvršavanje transakcija.
+
+
+Apstraktne klase koje možete definirati:
+
+- Osoba: Apstraktna klasa koja predstavlja osnovne osobne podatke korisnika.
+- Transakcija: Apstraktna klasa koja sadrži zajednička svojstva svih vrsta transakcija.
+
+
+Klase koje možete definirati:
+
+- Korisnik: Klasa koja implementira sučelje IBankovniRacun i sadrži informacije o korisniku.
+- Banka: Klasa koja upravlja korisnicima i omogućuje izvršavanje transakcija. Implementira ubrizgavanje ovisnosti kako bi se postigla labava sprega s korisnicima.
+- Konkretne vrste transakcija (npr. Uplata, Isplata) koje nasljeđuju Transakcija.
+
+
+Virtualne metode i polimorfizam:
+
+- U klasama Osoba, Transakcija i drugim relevantnim klasama, implementirati virtualne metode koje se mogu nadjačati u podklasama za specifične potrebe.
+
+
+Apstraktne metode:
+
+- ITransakcija definira apstraktnu metodu IzvrsiTransakciju() koju implementiraju konkretne transakcijske klase.
+
+Enkapsulacija:
+
+- Odredi koje vrijable trebaju biti enkapsulirane (odredi gdje je potrebno staviti private, public, protected ili internal) kako bi se osigurala zaštita podataka i održavanje skladnog stanja objekata.
+
+Dodatni uvjeti:
+
+Implementirati mehanizme ubrizgavanja ovisnosti kako bi se omogućila labava sprega i jednostavno testiranje.
+Održavati jasnu hijerarhiju klasa kroz nasljeđivanje kako bi se postigla čitljivost i skalabilnost koda.
+Koristiti apstraktne klase i sučelja tamo gdje je to primjenjivo radi definiranja zajedničkih karakteristika i funkcionalnosti.
+Ovaj zadatak osigurava primjenu naprednih OOP koncepta i tehnika kako bi se postigla visoka razina modularnosti, fleksibilnosti i čitljivosti koda. Sretno!
