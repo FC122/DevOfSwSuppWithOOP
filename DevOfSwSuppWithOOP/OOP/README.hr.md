@@ -3,6 +3,16 @@ U ovom poglavlju biti će objašnjeni osnovni pojmovi i koncepti vezani uz oop. 
 
 ## Klasa
 Klasa u objektno orijentiranom programiranju predstavlja predložak ili "plavprint" za stvaranje objekata. U njoj se definiraju svojstva (atributi) i ponašanja (metode) objekata određenog tipa.
+
+### Konstruktor
+Konstruktor je posebna vrsta metode u programiranju, koja se koristi za inicijalizaciju objekata u klasi. On se obično koristi za postavljanje početnih vrijednosti svojstava ili izvođenje drugih inicijalizacijskih radnji potrebnih za ispravno funkcioniranje objekta.
+
+### Atribut
+Atributi, u kontekstu programiranja, su varijable koje su vezane uz određeni objekt ili klasu. Svaki objekt može imati svoj set atributa koji opisuju njegova svojstva ili stanje.
+
+### Metoda
+Metoda u programiranju predstavlja funkciju koja je definirana unutar neke klase. Ove funkcije obično služe za izvođenje određenih operacija nad objektima te klase ili za manipulaciju s njihovim atributima.
+
 ``` cs
 public class Automobil
 {
@@ -26,9 +36,45 @@ public class Automobil
     }
 }
 ```
+### Statička klasa, metoda i atribut
+Statičke klase ne mogu imati instance i obično se koriste za grupiranje povezanih metoda i atributa koje se mogu koristiti bez potrebe za stvaranjem objekata.
 
+Međutim, unutar statičke klase mogu postojati i nestatički (obični) atributi i metode. Ovi atributi i metode mogu biti korišteni samo ako postoji instanca klase, što nije moguće kod statičkih klasa jer se one ne mogu instancirati.
+```cs
+
+public static class StaticClassExample
+{
+    // Statički atribut
+    public static int brojac = 0;
+
+    // Statička metoda
+    public static void Pozdrav()
+    {
+        Console.WriteLine("Pozdrav iz statičke metode!");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Pozivanje statičke metode bez stvaranja instance klase
+        StaticClassExample.Pozdrav();
+
+        // Pristupanje statičkom atributu
+        StaticClassExample.brojac++;
+
+        // Ispisivanje vrijednosti statičkog atributa
+        Console.WriteLine("Vrijednost brojaca: " + StaticClassExample.brojac);
+    }
+}
+```
 ## Objekt
-Objekt je instanca klase. Objekt posjeduje svojstva definirana u klasi te može izvršavati metode koje su također definirane u klasi. Objekti omogućuju konkretizaciju apstraktnih definicija i reprezentiraju stvarne entitete ili pojave u programu. Sa ključnom riječi new instanciramo objekt tj. stvaramo taj objekt.
+Objekt je instanca klase. Objekt posjeduje svojstva definirana u klasi te može izvršavati metode koje su također definirane u klasi. Objekti omogućuju konkretizaciju apstraktnih definicija i reprezentiraju stvarne entitete ili pojave u programu.
+
+### Instanciranje objekta
+Instanciranje objekta je postupak stvaranja instance određene klase. Kada se kreira instanca, rezervira se memorija za objekt, a konstruktor klase se koristi za inicijalizaciju tog objekta. Sa ključnom riječi new instanciramo objekt tj. stvaramo taj objekt.
+
 ``` cs
 class Program
 {
@@ -45,6 +91,8 @@ class Program
 
 ## Nasljeđivanje
 Koncept u oop-u koji nalaže kreiranje novih klasa na temelju postojećih klasa, preuzimajući njihova svojstva i metode čime se olakšava korištenje koda i poboljšava organizacija programa.
+
+Pogledati video: https://www.youtube.com/watch?v=hxGOiiR9ZKg&t=500s
 
 ### Klasa roditelj
 Viša/Roditeljska/Bazna/Osnovna klasa je klasa čiji članovi su naslijeđeni od strane druge klase. Također je poznata kao roditeljska klasa ili nadklasa. Ona definira zajedničke atribute i ponašanja koji se dijele među njenim izvedenim klasama.
@@ -315,6 +363,8 @@ Parametarski polimorfizam se postiže kroz korištenje generičkih tipova. Gener
 ## Ovisnost
 
 ### Ubrizgavanje ovisnosti
+Pogeldati ovaj video: https://www.youtube.com/watch?v=J1f5b4vcxCQ
+
 Obrazac koji se koristi u oop-u kako bi se riješio problem ovisnosti između klasa ubrizgavanjem tih ovisnosti izvana, umjesto da klasa stvara svoje ovisnosti unutar sebe. Osnovni cilj DI-ja je postizanje labave povezanosti između klasa, čime se sustav čini modularnim, održivijim i stabilnijim.
 
 #### Ubrizgavanje konstruktorom

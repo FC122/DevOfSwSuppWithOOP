@@ -1,9 +1,10 @@
-namespace OOPBankingSystem{
+namespace DevOfSwSuppWithOOP.OOPBankingSystem{
     public class Bank{
         private List<Customer> customers;
         private List<Transaction> transactions;
         public Bank(){
             customers = new List<Customer>();
+            transactions = new List<Transaction>();
         }   
 
         public void AddCustomer(Customer customer){

@@ -1,4 +1,4 @@
-namespace OOPBankingSystem{
+namespace DevOfSwSuppWithOOP.OOPBankingSystem{
     public class TransactionTransfer : Transaction{
         public int SourceAccountNumber { get; set; }
         public int DestinationAccountNumber { get; set; }

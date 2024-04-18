@@ -1,4 +1,4 @@
-namespace OOPBankingSystem{
+namespace DevOfSwSuppWithOOP.OOPBankingSystem{
     public static class ClientCode{
         public static void Run(){
             Bank bank = new();

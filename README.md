@@ -1,7 +1,32 @@
 # DevOfSwSuppWithOOP
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/FC122/DevOfSwSuppWithOOP/blob/master/README.en.md)
-Svrha ovog repozitorija je učenje za kolegiji Razvoj programske podrške objektno orjentiranim načelima (RPPOON).
+
+## Opis
+Skup definicija i edukacijskih primjera u svrhu učenja za kolegiji Razvoj programske podrške objektno orjentiranim načelima (RPPOON).
+
 ## Sadržaj
+- Opis
+- Sadržaj
+- Literatura
+- Sadržaj kolegija
+- Korištenje
+- Doprinosi
+- Autori
+- Zahvale
+
+## Literatura
+https://refactoring.guru, 04.14.2024.
+https://sourcemaking.com, 04.14.2024.
+https://www.freecodecamp.org/news/clean-coding-for-beginners, 04.14.2024.
+https://github.com/Luzkan/smells, 04.14.2024.
+Design Patterns, Elements of Reausable Object-Oriented Software, Gamma, Helm, Johnson, Vlissides
+https://www.youtube.com/@CodeAesthetic, 04.14.2024.
+https://www.youtube.com/watch?v=tv-_1er1mWI, 04.14.2024.
+https://www.youtube.com/watch?v=mE3qTp1TEbg&list=PLlsmxlJgn1HJpa28yHzkBmUY-Ty71ZUGc, 04.14.2024.
+https://code-maze.com, 04.17.2024.
+https://code-smells.com, 04.17.2024.
+https://makolyte.com, 04.17.2024.
+
+## Sadržaj kolegija
 - Objektno orjentirano programiranje
 - SOLID Načela
 - STUPID kod, Mirisi u kodu i antiobrasci
@@ -32,3 +57,24 @@ Svrha ovog repozitorija je učenje za kolegiji Razvoj programske podrške objekt
         - Metoda predložak
         - Posjetitelj
 - Osnove unit testiranje u C#
+
+# Korištenje
+Kloniraj repo:
+```
+git clone https://github.com/FC122/DevOfSwSuppWithOOP
+```
+ili preuzmi .zip i raspakiraj
+
+Otvori solution pomoći Visual Studija ili Visual Studio Codea
+
+U Program.cs kad želiš pokrenuti klijentski kod (ClientCode.cs) nekog namespace-a promjeni referencirani namespace. U primjeru ispod namespace je OOPBankingSystem
+```cs
+public static class Program{
+    public static void Main(string[] args){
+        OOPBankingSystem.ClientCode.Run();
+    }
+}
+```
+
+# Autor
+Filip Cica

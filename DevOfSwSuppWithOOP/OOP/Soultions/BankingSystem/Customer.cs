@@ -1,4 +1,4 @@
-namespace OOPBankingSystem{
+namespace DevOfSwSuppWithOOP.OOPBankingSystem{
     public class Customer : Person, IBankAccount{
         public int AccountNumber { get; set; }
         public decimal Balance { get; set; }

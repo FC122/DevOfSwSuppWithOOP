@@ -1,4 +1,4 @@
-namespace OOPBankingSystem{
+namespace DevOfSwSuppWithOOP.OOPBankingSystem{
     public interface IBankAccount{
         void Deposit(decimal amount);
         void Withdraw(decimal amount);
