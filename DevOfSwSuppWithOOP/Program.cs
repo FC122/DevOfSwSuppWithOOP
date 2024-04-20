@@ -1,10 +1,6 @@
 ﻿public static class Program{
     public static void Main(string[] args){
-        DevOfSwSuppWithOOP
-            .CleanCode
-            .Refactoring
-            .Solution1
-            .ClientCode
+        DevOfSwSuppWithOOP.DesignPatterns.Creational.Solution2.ClientCode
             .Run();
     }
 }
