@@ -107,7 +107,7 @@ Rješenje:
 
 Zadatak:
 |Generic                    | Contextual                |
-|:--------------------------|:--------------------------|    
+|:--------------------------|:--------------------------|  
 |Tvornica                   | DragonDungeon             |
 |StvoriProizvod             | IceDungeon                |
 |KonkretnaTvornicaA         | DungeonMaster             |
@@ -265,7 +265,7 @@ Rješenje:
 - Prototip se može koristiti za sklapanje metoda na klasama
 - Može se koristiti sa Mostom. Ova kombinacija je korisna kad Most može raditi samo sa specifičnim implementacijama. U ovom slučaju Apstraktna Tvornica moze enkapsulirati te veze i sakriti kompleksnost od klijentskog koda
 
-### Koracij implementacije
+### Koraci implementacije
 1. Napravi mapu proizvoda i vrsta proizvoda
 2. Deklariraj apstraktna sučelja proizvoda za sve vrste proizvoda. Zatim implementiraj sučelja u konkretne proizvode
 3. Deklariraj sučelje apstraktne tvornice s nizom metoda za stvaranje svih apstraktnih proizvoda.
@@ -447,7 +447,7 @@ Rješenje:
 - Često počne kao metoda tvornica ili apstraktna tvornica pa se kroz vrijeme prebaci u - Graditelja zbog vece promjenjivosti (customizable) tj. jer gradi objekte korak po korak
 - Graditeljem se često Grade kompoziti
 
-### Koracij implementacije
+### Koraci implementacije
 1. Definiraj korake stvaranja objekta
 1. Definirane korake sklopi kao Graditelj sučelje
 2. Implementiraj sucelje kao konkretan Graditelj
@@ -710,7 +710,7 @@ Rješenje:
 - Može se koristiti sa Apstraktnom Tvornicom tj. Apstraktna Tvornica moze koristiti Prototip za implementiranje funkcionalnosti kloniranja nad objektima koje stvara.
 - Kompozit i dekorater mogu koristiti Prototip za kloniranje kompleksnih konfiguracija objekata kao što su kompozit i dekorator.
 
-### Koracij implementacije
+### Koraci implementacije
 1. Učiniti konstruktor klase privatnim
 2. Deklarirati privatnu statičku referencu
 3. Kreirati statičku metodu koja će poslužiti kao konstruktor,
@@ -795,7 +795,6 @@ Za primjer dan izlistanjem koda odredite obrazac o kojemu je riječ i njegovu sk
 
 ### Zadatak 2
 ```cs
-
     public class WebElement{
         string name;
         public WebElement(string name){
