@@ -14,17 +14,17 @@ Skup definicija i edukacijskih primjera u svrhu učenja za kolegiji Razvoj progr
 - Zahvale
 
 ## Literatura
-https://refactoring.guru, 04.14.2024.
-https://sourcemaking.com, 04.14.2024.
-https://www.freecodecamp.org/news/clean-coding-for-beginners, 04.14.2024.
-https://github.com/Luzkan/smells, 04.14.2024.
-Design Patterns, Elements of Reausable Object-Oriented Software, Gamma, Helm, Johnson, Vlissides
-https://www.youtube.com/@CodeAesthetic, 04.14.2024.
-https://www.youtube.com/watch?v=tv-_1er1mWI, 04.14.2024.
-https://www.youtube.com/watch?v=mE3qTp1TEbg&list=PLlsmxlJgn1HJpa28yHzkBmUY-Ty71ZUGc, 04.14.2024.
-https://code-maze.com, 04.17.2024.
-https://code-smells.com, 04.17.2024.
-https://makolyte.com, 04.17.2024.
+- https://refactoring.guru, 04.14.2024.
+- https://sourcemaking.com, 04.14.2024.
+- https://www.freecodecamp.org/news/clean-coding-for-beginners, 04.14.2024.
+- https://github.com/Luzkan/smells, 04.14.2024.
+- Design Patterns, Elements of Reausable Object-Oriented Software, Gamma, Helm, Johnson, Vlissides
+- https://www.youtube.com/@CodeAesthetic, 04.14.2024.
+- https://www.youtube.com/watch?v=tv-_1er1mWI, 04.14.2024.
+- https://www.youtube.com/watch?v=mE3qTp1TEbg&list=PLlsmxlJgn1HJpa28yHzkBmUY-Ty71ZUGc, 04.14.2024.
+- https://code-maze.com, 04.17.2024.
+- https://code-smells.com, 04.17.2024.
+- https://makolyte.com, 04.17.2024.
 
 ## Sadržaj kolegija
 - Objektno orjentirano programiranje
@@ -57,7 +57,20 @@ https://makolyte.com, 04.17.2024.
         - Metoda predložak
         - Posjetitelj
 - Osnove unit testiranje u C#
+# Sadržaj repozitorija
+[OOP](https://github.com/FC122/DevOfSwSuppWithOOP/blob/master/DevOfSwSuppWithOOP/OOP/README.hr.md)
 
+[Clean code](https://github.com/FC122/DevOfSwSuppWithOOP/blob/master/DevOfSwSuppWithOOP/CleanCode/README.hr.md)
+
+[Code smells and antipatterns](https://github.com/FC122/DevOfSwSuppWithOOP/blob/master/DevOfSwSuppWithOOP/CodeSmellsAndAntipatterns/README.hr.md)
+
+[Creational design patterns](https://github.com/FC122/DevOfSwSuppWithOOP/blob/master/DevOfSwSuppWithOOP/DesignPatterns/Creational/README.hr.md)
+
+[Structural design patterns](https://github.com/FC122/DevOfSwSuppWithOOP/blob/master/DevOfSwSuppWithOOP/DesignPatterns/Structural/README.hr.md)
+
+[Behavioural design patterns](https://github.com/FC122/DevOfSwSuppWithOOP/blob/master/DevOfSwSuppWithOOP/DesignPatterns/Behavioural/README.hr.md)
+
+[SOLID](https://github.com/FC122/DevOfSwSuppWithOOP/blob/master/DevOfSwSuppWithOOP/SOLID/README.hr.md)
 # Korištenje
 Kloniraj repo:
 ```
@@ -75,6 +88,10 @@ public static class Program{
     }
 }
 ```
-
 # Autor
 Filip Cica
+
+# TODO
+Behavioural
+Unit tests
+Tasks
