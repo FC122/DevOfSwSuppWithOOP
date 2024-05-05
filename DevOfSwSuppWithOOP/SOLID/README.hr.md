@@ -320,20 +320,25 @@ Ne treba kroz ugradnju sucelja forsirati implementaciju metoda koje se ne korist
 
 Problem:
 ```cs
-class IBirdable{
-    public virtual void Walk(){
-        Console.WriteLine($"Bird is walking");
+interface IBirdable{
+    public virtual void Walk();
+    public virtual void Fly();
+}
+
+class Sparrow: IBirdable{
+    public void Walk(){
+        Console.WriteLine($"Sparrow is walking fast");
     }
-    public virtual void Fly(){
-        Console.WriteLine($"Bird is jumping");
+    public void Fly(){
+        Console.WriteLine($"Bird is flying fast");
     }
 }
 
 class Emu:IBirdable{
-    public override void Walk(){
-        Console.WriteLine($"Bird is walking fast");
+    public void Walk(){
+        Console.WriteLine($"Emu is walking fast");
     }
-    public override void Fly(){
+    public void Fly(){
         throw new NotImplementedException ();
     }
 } 
@@ -391,8 +396,14 @@ class BirdContoler{
 
 Rješenje:
 ```cs
-class Iwalkable{
+interface IWalkable{
     public void Walk();
+}
+
+class Bird{
+    public virtual void Walk(){
+        Console.WriteLine($"Bird is walking");
+    }
 }
 
 class BirdContoler{
