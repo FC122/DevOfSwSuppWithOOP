@@ -50,6 +50,7 @@ class Bank{
     }
 }
 ```
+Primjer iznad krši SRP jer klasa Bank ima dodatne odgovornosti nevezane za nju u obliku LogUserData i ExportToJSON metoda. Metode nevezane za klasu Bank potrebno je izdvojiti u odvojene klase.
 
 Ispravno:
 ```cs
@@ -80,6 +81,7 @@ class JSONExporter{
     }
 }
 ```
+Primjer iznad prati SRP je sada svaka klasa ima jednu odgovornost tj. odgovorna je za jednu funkcionlanost.
 
 ## OCP
 Klase trebaju biti zatvorene za izmjene, ali otvorene za prosirenja
@@ -137,6 +139,7 @@ public class Bird
 	}
 }
 ```
+Primjer iznad krši OCP jer kako bi dodali funkcionalnost za jos jednu vrstu ptice potrebno je nadograditi switch u svakoj od metoda sa novim slučajem korištenja.
 
 Rješenje:
 ```cs
@@ -216,6 +219,8 @@ public class Goldfinch: Bird
 	}
 }
 ```
+Primjer iznad slijedi OCP jer kako bi dodali funkcionalnost za novu vrstu pticu potrebno je izvesti jos jednu konkretnu pticu iz apstraktne klase Bird tj. nije potrebno mijenjati postojeći kod.
+
 ## LSP
 Izvedene klase trebaju moci zamijeniti osnovnu. Kršenje LSP dovodi do kršenja OCP.
 
@@ -256,6 +261,7 @@ class BirdContoler{
     }
 }
 ```
+Primjer iznad krši LSP jer klasa Bird i klasa Emu nisu medjusobno zamjenjive jer klasa Emu forsira implementaciju metoide Fly.
 
 Rješenje 1:
 ```cs
@@ -279,6 +285,7 @@ class BirdContoler{
     }
 }
 ```
+Primjer iznad ne krši LSP no krši OCP jer sad za svak pticu koja ne leti trebamo ažurirati i metodu MakeBirdsFly.
 
 Rješenje 2:
 ```cs
@@ -314,6 +321,7 @@ class BirdControler{
     }
 }
 ```
+Primjer iznad je bolji od Rješenja 1 jer ne krši ni LSP ni OCP. To je postignuto uvođenjem apstrakcija u obliku sučelja te segregacijom sučelja prema respektiblinim funkcionalnostima.
 
 ## ISP
 Ne treba kroz ugradnju sucelja forsirati implementaciju metoda koje se ne koriste ili nisu potrebne ili nisu valjane za danu klasu
@@ -343,6 +351,7 @@ class Emu:IBirdable{
     }
 } 
 ```
+Primjer iznad krši ISP jer forsira implementaciju metode Fly u klasama kod kojih ta metoda ne smije biti implementirana.
 
 Rješenje:
 ```cs
@@ -370,6 +379,7 @@ class Sparrow: IFlyable, IWalkable{
     }
 }
 ```
+Primjer iznad poštuje ISP jer je sučelje iz prethodnog primjera podjeljeno na dva sučelja što omogućava klasama da implementiraju funkcionalnosti koje imaju smisla u njihovom kontekstu.
 
 ## DIP
 Klase na višim razinama ne trebaju ovisiti o klasama na nižim razinama, nego (oboje) trebaju ovisiti o apstrakciji
@@ -393,6 +403,7 @@ class BirdContoler{
     }
 }
 ```
+Primjer iznad krši DIP jer klasa BirdControler ovisi o konkretnoj klasi Bird a ne o nekoj apstrakciji.
 
 Rješenje:
 ```cs
@@ -417,3 +428,4 @@ class BirdContoler{
     }
 }
 ```
+Primjer iznad slijedi DIP jer klase ovise o apstrakciji IWalkable.

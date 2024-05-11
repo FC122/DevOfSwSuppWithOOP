@@ -1224,3 +1224,66 @@ Rješenje:
 
 #### Negativno
 - Program postaje kompliciraniji
+
+## Zadaci
+Za primjer dan izlistanjem koda odredite obrazac o kojemu je riječ i njegovu skupinu. Dopunite kod implementacijom koja nedostaje te napišite klijentski kod za ovaj primjer.
+
+### Zadatak 1
+```cs
+    interface IPackable{
+        public void Pack();
+    }
+
+    class Item : IPackable
+    {
+        string name;
+        public Item(string name){
+            this.name = name;
+        }
+        public void Pack()
+        {
+            Console.WriteLine($"Pack item {name}");
+        }
+    }
+
+    class Package:IPackable{
+        string name;
+        List<IPackable> packables;
+        public Package(string name){
+            this.name=name;
+            packables = new List<IPackable>();
+        }
+    }
+```
+
+### Zadatak 2
+```CS
+    public interface Coffee {
+        double GetCost();
+        String GetDescription();
+    }
+
+    public class Espresso: Coffee {
+
+        public double GetCost() {
+            return 1.99;
+        }
+
+        public String GetDescription() {
+            return "Espresso";
+        }
+    }
+
+    public abstract class CoffeeDecorator: Coffee {
+        protected Coffee coffee;
+
+        public CoffeeDecorator(Coffee coffee) {
+            this.coffee = coffee;
+        }
+    }
+
+    public class Milk: CoffeeDecorator {
+
+        public Milk(Coffee coffee):base(coffee){}
+    }
+```

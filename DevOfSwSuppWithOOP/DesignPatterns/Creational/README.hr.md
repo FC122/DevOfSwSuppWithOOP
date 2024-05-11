@@ -117,23 +117,10 @@ Zadatak:
 |Proizvod B                 | DragonDungeonFactory      |
 |Client                     | CreateDungeon             |
 
-Rješenje:
-|Generic                    | Contextual                |
-|:--------------------------|:--------------------------|    
-|Tvornica                   | DungeonFactory            |
-|StvoriProizvod             | CreateDungeon             |
-|KonkretnaTvornicaA         | IceDungeonFactory         |
-|KonkretnaTvornicaB         | DragonDungeonFactory      |    
-|Proizvod                   | Dungeon                   |
-|ProizvodA                  | IceDungeon                |
-|ProizvodB                  | DragonDungeon             |
-|Client                     | DungeonMaster             |
-
-
 
 ### Koja SOLID načela vidimo
 
-SRP - Klasa game nemora za svaki Dungeon implementirati stvaranje
+SRP - Klasa game ne mora za svaki Dungeon implementirati stvaranje
 
 OCP - Možeš dodavati nove Dungeons bez mijenjanja koda
 
@@ -238,18 +225,6 @@ Zadatak:
 |Klijentski kod             |WaterWizard                |
 |Obitelj                    |CreateWizard               |
 |Metoda stvaranja           |GameManager                |
-
-Rješenje:
-|Generic                    | Contextual                |
-|:--------------------------|:--------------------------|
-|Apstraktna tvornica        |CharacterFactory           |
-|Konkretna tvornica         |FireCharachterFactory      |
-|Proizvod                   |Goblin                     |
-|Konkretni proizvod         |WaterWizard                |
-|Klijentski kod             |GameManager                |
-|Obitelj                    |Fire                       |
-|Metoda stvaranja           |CreateWizard               |
-
 
 ### Koja SOLID načela vidimo
 - SRP- klasa Game sad samo koristi listu tvornica umjesto da instancira vise klasa proizvoda
@@ -547,13 +522,6 @@ Zadatak:
 |Prototip registery         |ICloneable                 |
 |Concrete prototype         |Clowder                    |
 
-Rješenje:
-|Generic                    | Contextual                |
-|:--------------------------|:--------------------------|
-|Clone()                    |Clone()                    |
-|Prototip                   |IClonable                  |
-|Prototip registery         |Clowder                    |
-|Concrete prototype         |Cat                        |
 
 ### Koja SOLID načela vidimo
 - SRP - Prototip je odgovoran za kloniranje sebe, ne klijentski kod

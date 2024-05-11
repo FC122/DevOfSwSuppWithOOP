@@ -25,6 +25,7 @@ Skup definicija i edukacijskih primjera u svrhu učenja za kolegiji Razvoj progr
 - https://code-maze.com, 04.17.2024.
 - https://code-smells.com, 04.17.2024.
 - https://makolyte.com, 04.17.2024.
+https://www.codingdrills.com/tutorial/design-patterns-tutorial/introduction-to-dp, 05.11.2024
 
 ## Sadržaj kolegija
 - Objektno orjentirano programiranje
@@ -93,5 +94,7 @@ Filip Cica
 
 # TODO
 Behavioural
+
 Unit tests
-Tasks
+
+Dodati Zadatke iz 3,4,5
