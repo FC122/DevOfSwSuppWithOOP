@@ -3,61 +3,7 @@
 ## Opis
 Skup definicija i edukacijskih primjera u svrhu učenja za kolegiji Razvoj programske podrške objektno orjentiranim načelima (RPPOON).
 
-## Sadržaj
-- Opis
-- Sadržaj
-- Literatura
-- Sadržaj kolegija
-- Korištenje
-- Doprinosi
-- Autori
-- Zahvale
-
-## Literatura
-- https://refactoring.guru, 04.14.2024.
-- https://sourcemaking.com, 04.14.2024.
-- https://www.freecodecamp.org/news/clean-coding-for-beginners, 04.14.2024.
-- https://github.com/Luzkan/smells, 04.14.2024.
-- Design Patterns, Elements of Reausable Object-Oriented Software, Gamma, Helm, Johnson, Vlissides
-- https://www.youtube.com/@CodeAesthetic, 04.14.2024.
-- https://www.youtube.com/watch?v=tv-_1er1mWI, 04.14.2024.
-- https://www.youtube.com/watch?v=mE3qTp1TEbg&list=PLlsmxlJgn1HJpa28yHzkBmUY-Ty71ZUGc, 04.14.2024.
-- https://code-maze.com, 04.17.2024.
-- https://code-smells.com, 04.17.2024.
-- https://makolyte.com, 04.17.2024.
-
-## Sadržaj kolegija
-- Objektno orjentirano programiranje
-- SOLID Načela
-- STUPID kod, Mirisi u kodu i antiobrasci
-- Oblikovni obrasci
-    - Obrasci stvaranja
-        - Metoda tvornica
-        - Apstraktna tvornica
-        - Graditelj
-        - Prototip
-        - Singleton
-    - Obrasci strukture
-        - Adapter
-        - Most
-        - Kompozit
-        - Dekorator
-        - Fasada
-        - Flyweight
-        - Proxy
-    - Obrasci ponašanja
-        - Lanac odgovornosti
-        - Naredba
-        - Iterator
-        - Mediator
-        - Memento
-        - Promatrač
-        - Stanje
-        - Strategija
-        - Metoda predložak
-        - Posjetitelj
-- Osnove unit testiranje u C#
-# Sadržaj repozitorija
+# Sadržaj
 [OOP](https://github.com/FC122/DevOfSwSuppWithOOP/blob/master/DevOfSwSuppWithOOP/OOP/README.hr.md)
 
 [Clean code](https://github.com/FC122/DevOfSwSuppWithOOP/blob/master/DevOfSwSuppWithOOP/CleanCode/README.hr.md)
@@ -71,6 +17,32 @@ Skup definicija i edukacijskih primjera u svrhu učenja za kolegiji Razvoj progr
 [Behavioural design patterns](https://github.com/FC122/DevOfSwSuppWithOOP/blob/master/DevOfSwSuppWithOOP/DesignPatterns/Behavioural/README.hr.md)
 
 [SOLID](https://github.com/FC122/DevOfSwSuppWithOOP/blob/master/DevOfSwSuppWithOOP/SOLID/README.hr.md)
+
+## Literatura
+[Refactoring guru, Website](https://refactoring.guru), 04.14.2024.
+
+[Sourcemaking, Website](https://sourcemaking.com), 04.14.2024.
+
+[FreeCodeCamp, Website](https://www.freecodecamp.org/news/clean-coding-for-beginners), 04.14.2024.
+
+[Luzkan Code Smells - Github](https://github.com/Luzkan/smells), 04.14.2024.
+
+[Design Paterns, Gamma, Helm, Johnson, Vlissides, Book](https://github.com/ben-elbert/books/blob/master/Design%20Patterns%2C%20Elements%20of%20Reusable%20Object-Oriented%20Software.pdf)
+
+[CodeAesthetic, Youtube](https://www.youtube.com/@CodeAesthetic), 04.14.2024.
+
+[Fireship, Youtube](https://www.youtube.com/watch?v=tv-_1er1mWI), 04.14.2024.
+
+[Geekific, Youtube](https://www.youtube.com/watch?v=mE3qTp1TEbg&list=PLlsmxlJgn1HJpa28yHzkBmUY-Ty71ZUGc), 04.14.2024.
+
+[CodeMaze, Website](https://code-maze.com), 04.17.2024.
+
+[CodeSmells](https://code-smells.com), 04.17.2024.
+
+[Makolyte, Website](https://makolyte.com), 04.17.2024.
+
+[CodingDrills, Website](https://www.codingdrills.com/tutorial/design-patterns-tutorial/introduction-to-dp), 05.11.2024
+
 # Korištenje
 Kloniraj repo:
 ```
@@ -93,5 +65,7 @@ Filip Cica
 
 # TODO
 Behavioural
+
 Unit tests
-Tasks
+
+Dodati Zadatke iz 3,4,5
