@@ -93,8 +93,9 @@ public static class Program{
 Filip Cica
 
 # TODO
-Behavioural
-
-Unit tests
-
+Visitor
+Null Objekt
+Naredba
+Mediator
+Stanje
 Dodati Zadatke iz 3,4,5
