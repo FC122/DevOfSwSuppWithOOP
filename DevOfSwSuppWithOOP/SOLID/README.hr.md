@@ -411,8 +411,8 @@ interface IWalkable{
     public void Walk();
 }
 
-class Bird{
-    public virtual void Walk(){
+class Bird:IWalkable{
+    public void Walk(){
         Console.WriteLine($"Bird is walking");
     }
 }

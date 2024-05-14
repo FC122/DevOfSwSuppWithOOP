@@ -185,6 +185,43 @@ namespace DevOfSwSuppWithOOP.DesignPatterns.Structural.Facade{
                 IManager manager = new Manager();
                 manager.ApplyEffect("Fire");
                 manager.RandomSpawn();
+
+                EffectManager effectManager = new EffectManager();
+                SpawnManger spawnManger = new SpawnManger();
+                EnemyManager enemyManager = new EnemyManager();
+
+                string type = "Fire";
+
+                if (type == "Magic")
+                {
+                    effectManager.MagicEffect();
+                }
+                else if (type == "Fire")
+                {
+                    effectManager.FireEffect();
+                }
+                else if (type == "Water")
+                {
+                    effectManager.WaterEffect();
+                }
+                else
+                {
+                    throw new Exception("Effect type doesn't exist");
+                }
+
+                Random random = new Random();
+                if (random.Next(0, 1) == 0)
+                {
+                    spawnManger.SpawnMob();
+                }
+                else if (random.Next(0, 1) == 1)
+                {
+                    enemyManager.SpawnEnemie();
+                }
+                else
+                {
+                    spawnManger.UnspawnMob();
+                }
             }
         }
     }
