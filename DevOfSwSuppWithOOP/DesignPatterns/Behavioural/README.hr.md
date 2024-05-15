@@ -710,32 +710,243 @@ Zadatak:
 
 ## Memento
 ### Dijagram
+![Memento](./Images/Memento.png)
+
 ### Definicija
+Oblikovni obrazac ponašanja koji za zadaću ima bilježiti i pohraniti van objekta njegovo stanje, ali bez narušavanja enkapsulacije. Objektu se stanje može vratiti na neko prethodno.
+
 ### Primjer
+Implementiraj FileClipboard (Memento) i Cache (Skrbnik) za File (Izvronik) klasu
+```cs
+public class File//izvornik
+{
+    public string FileData { get; private set; }
+    public File() { FileData = ""; }
+    public void Append(string data) => FileData+=data
+}
+```
+Rješenje:
+```cs
+public class File//izvornik
+{
+    public string FileData { get; private set; }
+    public File() { FileData = ""; }
+    public void Append(string data) {}
+    public FileClipboard SaveDataToClipboard()
+    {
+        return new FileClipboard(FileData);
+    }
+    public void PasteFromClipboard(FileClipboard fileClipboard)
+    {
+        FileData = fileClipboard.FileData;
+    }
+}
+
+public class FileClipboard//Memento
+{
+    public string FileData { get; private set; }
+    public FileClipboard(string FileData)
+    {
+        this.FileData = FileData;
+    }
+    public string GetClipboardData()
+    {
+        return FileData;
+    }
+}
+
+public class Cache//skrbnik
+{
+    File file;
+    List<FileClipboard> fileClipboards = new List<FileClipboard>();
+    public Cache(File file)
+    {
+        this.file = file;
+    }
+    public void SaveToCache(FileClipboard fileClipboard)
+    {
+        fileClipboards.Add(fileClipboard);
+    }
+    public void Undo()
+    {
+        int count = fileClipboards.Count;
+        if (count > 1)
+        {
+            file.PasteFromClipboard(fileClipboards.ElementAt(count - 2));
+            fileClipboards.RemoveAt(count - 1);
+        }
+    }
+}
+```
 ### Poveži klase i metode s ulogama u obrascu
-### Koja solid načela vidimo
+|Generic                    | Contextual                |
+|:--------------------------|:--------------------------|  
+|File                       | Skrbnik                   |
+|FileClipboard              | Memento                   |
+|Cache                      | state                     |
+|FileData                   | Izvornik                  |
+
+### Koja SOLID načela vidimo
+- SRP - odvaja stanja od brige za ta stanja, bez mementa stanja bi čuvali negdje u klijentskom kodu
+- OCP - ne mozes mijenjati implementaciju Mementa, možeš dodavati različite reprezentacije objekta u mementa i skrbnika 
+
 ### Povezani obrasci
+- Naredba i Memento se mogu koristiti zajedno
+- Memento i Iterator se mogu koristit zajedno
+- Prototip je jednostavnija alternativa Mementu
+
 ### Koraci implementacije
+1. Odredi klase koje ce predstavljati izvornike
+2. Stvori Memento klasu
+3. Deklariraj set polja u Memento klasi koja zrcale polja Izvornicke klase
+4. Napravi Memento klasu nepromjenjivom. Memento bi trebao primiti podatke jednom preko konstruktora. Memento klasa ne bi trebala imati setere
+5. Dodati metodu za kreiranje mementa u izvornik, a kreira se predavanjem vlastitih atributa u konstruktor mementa
+6. Dodati metodu koja vraća stanje izvornika iz mementa
+7. Skrbnik treba znati kada zatražiti nove memento objekte od izvornika, kako ih pohraniti i kada ih iskoristiti za vraćanje stanja
+
 ### Kada koristiti
+- Koristi Memento kad zelis imati mogućnost stvoriti snapshot-e stanja objekta kako bi mogao restaurirati prethodno stanje objekta.
+- Koristi Memento kad direktan pristup poljima/geterima/seterima objekta krsi enkapsulaciju
+
 ### Posljedice
+#### Pozitivne
+- Možeš proizvesti slike stanja objekta bez kršenja enkapsulacija
+- Možeš pojednostaviti kod izvornika tako sto dopuštaš skrbniku da održava povijest stanja originatora
+#### Negativne
+- Aplikacija može trošiti mnogo RAMa ako su Mementi često stvarani
+- Skrbinici bi trebali moci pratiti životni ciklus izvornika kako bi mogli destruktirati stare mementose
+
 
 ## Promatrač (engl. Observer)
 ### Dijagram
+![Promatrač](./Images/Observer.png)
+
 ### Definicija
+Promatrac je ponašajni obrazac koji omogućava mehanizama pretplate čime se obavještava vise objekata o događajima koji se događaju na objektu koji promatraju.
+
 ### Primjer
+```cs
+
+```
+Rješenje:
+```cs
+public interface ILoggable
+{
+    public void Log(string message);
+}
+
+public class UserConsole : ILoggable
+{
+    public void Log(string message)
+    {
+        ShowMessageOnConsole(message);
+    }
+
+    public void ShowMessageOnConsole(string message)
+    {
+        Console.WriteLine($"Write to user console: {message}");
+    }
+}
+
+public class File : ILoggable
+{
+    public void Log(string message)
+    {
+        SaveLogToFile(message);
+    }
+
+    public void SaveLogToFile(string log)
+    {
+        Console.WriteLine($"Write log to file{log}");
+    }
+}
+
+public class Email : ILoggable
+{
+    public void Log(string message)
+    {
+        SendMail(message);
+    }
+
+    public void SendMail(string mailContent)
+    {
+        Console.WriteLine($"Send log to mail: {mailContent}");
+    }
+}
+
+public interface IManageable
+{
+    public void Add(ILoggable loggable);
+    public void Remove(ILoggable loggable);
+    public void Notify(string message);
+}
+
+public class LogManager : IManageable
+{
+    List<ILoggable> loggables = new List<ILoggable>();
+    public void Add(ILoggable loggable)
+    {
+        loggables.Add(loggable);
+    }
+
+    public void Notify(string message)
+    {
+        loggables.ForEach(loggable =>
+        {
+            loggable.Log(message);
+        });
+    }
+
+    public void Remove(ILoggable loggable)
+    {
+        loggables.Remove(loggable);
+    }
+}
+```
 ### Poveži klase i metode s ulogama u obrascu
-### Koja solid načela vidimo
+|Generic                    | Contextual                |
+|:--------------------------|:--------------------------|  
+|Subject                    | LogManager                |
+|Concrete subject           | Email                     |
+|Observer                   | UserConsole               |
+|Concrete observer          | File                      |
+|                           | ILoggable                 |
+|                           | IManageable               |
+|                           | LogMannager               |
+
+### Koja SOLID načela vidimo
+- SRP - Kod logiranja na različite objekte je na jednom mjestu
+- OCP - mozemo dodavati logere i managere
+- LSP - logeri su zamjenjivi sa drugim logerima i manageri sa drugim managerima
+- ISP - ILoggable interface ne namece ne potrebne funkcionalnosti
+- DIP - ovismo o apstrakcijama
+
 ### Povezani obrasci
+Lanac odgovornosti, Naredba, Mediator i Observer su sve različiti načini spajanja sendera i receivera
+
 ### Koraci implementacije
+1. Kreirati sučelje promatrača s metodama za ažuriranje
+2. Kreirati sučelje subjekta i opisati radnje za početak i kraj pretplate na obavijesti
+3. Kreirati konkretne subjekte koji šalju obavijesti promatračima svaki put kada se unutar objekta dogodi nešto važno
+4. Implementirati metode za ažuriranje u konkretne promatrače
+5. Unutar klijenta kreiraju se subjekti i promatrači te ih se odgovarajuće registrira
+
 ### Kada koristiti
+Koristiti Promatraca kad promjene u stanju nekog objekta zahtijevaju promjene na drugim objektima, a istinski set objekata je nepoznat unaprijed ili se mijenja dinamicki
+
 ### Posljedice
+#### Pozitivne
+- OCP - omogućuje beskonačno dodavanje pretplatnika bez mijenjanja koda objavljivača i obrnuto
+- Mozes mijenjati pretplatnike kroz izvođenje programa (at runtime)
+#### Negativne
+- Pretplatnici se nekad obaviješteni nasumičnim redom
 
 ## Posjetitelj (engl. Visitor)
 ### Dijagram
 ### Definicija
 ### Primjer
 ### Poveži klase i metode s ulogama u obrascu
-### Koja solid načela vidimo
+### Koja SOLID načela vidimo
 ### Povezani obrasci
 ### Koraci implementacije
 ### Kada koristiti
@@ -746,7 +957,7 @@ Zadatak:
 ### Definicija
 ### Primjer
 ### Poveži klase i metode s ulogama u obrascu
-### Koja solid načela vidimo
+### Koja SOLID načela vidimo
 ### Povezani obrasci
 ### Koraci implementacije
 ### Kada koristiti
@@ -757,7 +968,7 @@ Zadatak:
 ### Definicija
 ### Primjer
 ### Poveži klase i metode s ulogama u obrascu
-### Koja solid načela vidimo
+### Koja SOLID načela vidimo
 ### Povezani obrasci
 ### Koraci implementacije
 ### Kada koristiti
@@ -768,7 +979,7 @@ Zadatak:
 ### Definicija
 ### Primjer
 ### Poveži klase i metode s ulogama u obrascu
-### Koja solid načela vidimo
+### Koja SOLID načela vidimo
 ### Povezani obrasci
 ### Koraci implementacije
 ### Kada koristiti
@@ -779,7 +990,7 @@ Zadatak:
 ### Definicija
 ### Primjer
 ### Poveži klase i metode s ulogama u obrascu
-### Koja solid načela vidimo
+### Koja SOLID načela vidimo
 ### Povezani obrasci
 ### Koraci implementacije
 ### Kada koristiti
