@@ -268,7 +268,7 @@ public class Item
 ```
 Rješenje:
 ```cs
- public class Item
+    public class Item
     {
         public string name;
 
@@ -278,32 +278,21 @@ Rješenje:
         }
     }
 
-    public interface IItemIterator
+    public class ItemIterator
     {
-        public bool HasNext();
-        public Item GetNext();
-    }
-
-    public interface IItemCollection
-    {
-        public IItemIterator CreateItemIterator();
-    }
-
-    public class ItemIterator : IItemIterator
-    {
-        private ItemCollection itemCollection;
+        private List<Item> items;
         int current;
 
-        public ItemIterator(ItemCollection itemCollection)
+        public ItemIterator(List<Item> items)
         {
-            this.itemCollection = itemCollection;
+            this.items = items;
         }
 
         public Item GetNext()
         {
             if (HasNext())
             {
-                Item item = itemCollection.GetItem(current);
+                Item item = items.GetItem(current);
                 current++;
                 return item;
             }
@@ -315,32 +304,14 @@ Rješenje:
 
         public bool HasNext()
         {
-            return current <= itemCollection.Count();
+            return current <= items.Count();
         }
     }
 
-    public class ItemCollection : IItemCollection
-    {
-        private List<Item> items;
-
-        public ItemCollection(List<Item> items)
-        {
-            this.items = items;
-        }
-
-        public IItemIterator CreateItemIterator()
-        {
-            return new ItemIterator(this);
-        }
-
-        public int Count()
-        {
-            return items.Count;
-        }
-
-        public Item GetItem(int index)
-        {
-            return items[index];
+    class Program{
+        void Main(){
+            BTree<Item> items = new BTree<Item>()
+            ItemIterator it = new ItemIterator(items)
         }
     }
 ```
@@ -729,7 +700,7 @@ Rješenje:
 ```cs
 public class File//izvornik
 {
-    public string FileData { get; private set; }
+    private string FileData { get; private set; }
     public File() { FileData = ""; }
     public void Append(string data) {}
     public FileClipboard SaveDataToClipboard()
@@ -738,13 +709,13 @@ public class File//izvornik
     }
     public void PasteFromClipboard(FileClipboard fileClipboard)
     {
-        FileData = fileClipboard.FileData;
+        FileData = fileClipboard.GetClipboardData();
     }
 }
 
 public class FileClipboard//Memento
 {
-    public string FileData { get; private set; }
+    private string FileData { get; private set; }
     public FileClipboard(string FileData)
     {
         this.FileData = FileData;
@@ -826,7 +797,43 @@ Promatrac je ponašajni obrazac koji omogućava mehanizama pretplate čime se ob
 
 ### Primjer
 ```cs
+public class UserConsole 
+{
+    public void ShowMessageOnConsole(string message)
+    {
+        Console.WriteLine($"Write to user console: {message}");
+    }
+}
 
+public class File 
+{
+    public void SaveLogToFile(string log)
+    {
+        Console.WriteLine($"Write log to file{log}");
+    }
+}
+
+public class Email
+{
+    public void SendMail(string mailContent)
+    {
+        Console.WriteLine($"Send log to mail: {mailContent}");
+    }
+}
+
+
+public static class ClientCode
+{
+    public static void Run()
+    {
+        UserConsole userConsole = new UserConsole();
+        File file = new File();
+        Email email = new Email();
+        userConsole.ShowMessageOnConsole("System message");
+        file.SaveLogToFile("System message");
+        email.SendMail("System message");
+    }
+}
 ```
 Rješenje:
 ```cs
@@ -884,6 +891,7 @@ public interface IManageable
 public class LogManager : IManageable
 {
     List<ILoggable> loggables = new List<ILoggable>();
+    bool HasErrorOccured {get; set;}
     public void Add(ILoggable loggable)
     {
         loggables.Add(loggable);
@@ -891,15 +899,32 @@ public class LogManager : IManageable
 
     public void Notify(string message)
     {
-        loggables.ForEach(loggable =>
-        {
-            loggable.Log(message);
-        });
+        if(HasErrorOccuerd){
+            loggables.ForEach(loggable =>
+            {
+                loggable.Log(message);
+            });
+        }
     }
 
     public void Remove(ILoggable loggable)
     {
         loggables.Remove(loggable);
+    }
+}
+
+public static class ClientCode
+{
+    public static void Run()
+    {
+        IManageable logginigManager = new LogManager();
+        ...
+        logginigManager.Add(new Email());
+        logginigManager.Add(new File());
+        logginigManager.Add(new UserConsole());
+        while(true){
+            logginigManager.Notify("Doslo je do errora");
+        }
     }
 }
 ```
@@ -912,7 +937,7 @@ public class LogManager : IManageable
 |Concrete observer          | File                      |
 |                           | ILoggable                 |
 |                           | IManageable               |
-|                           | LogMannager               |
+|                           |                |
 
 ### Koja SOLID načela vidimo
 - SRP - Kod logiranja na različite objekte je na jednom mjestu
@@ -943,55 +968,297 @@ Koristiti Promatraca kad promjene u stanju nekog objekta zahtijevaju promjene na
 
 ## Posjetitelj (engl. Visitor)
 ### Dijagram
+![Posjetitelj](./Images/Visitor.png)
 ### Definicija
+Obrazac ponašanja koji omogućuje odvajanje algoritama od objekata nad kojim izvode operacije.
 ### Primjer
+Kako odvojiti Tip Instrukcija od Instrukcija tako da programski možemo birati kombinaciju?
+```cs
+public enum Mode{Online, Live, Video}
+public abstract class Instructions{
+    protected string teacher;
+    protected Mode mode;
+    public Instructions(string teacher, Mode mode){
+        this.teacher = teacher;
+        this.mode = mode;
+    }
+    public abstract void Teach();
+}
+
+public class Mathematics : Instructions
+{
+    public Mathematics(string teacher, Mode mode):base(teacher, mode){}
+    public override void Teach()
+    {
+        Console.WriteLine($"{teacher} teaches Mathematics in ${mode}");
+    }
+}
+
+    public class RPPOON : Instructions
+{
+
+    public RPPOON(string teacher, Mode mode):base(teacher,mode){}
+    public override void Teach()
+    {
+        Console.WriteLine($"{teacher} teaches RPPOON in {mode}");
+    }
+}
+
+public static class ClientCode{
+    public static void Run(){
+        List<Instructions> instructions = new List<Instructions>();
+        instructions.Add(new RPPOON("Filip Cica", Mode.Live));
+        instructions.Add(new Mathematics("Filip Cica", Mode.Live));
+        instructions.ForEach(instruction=>{
+            instruction.Teach();
+        });
+    }
+}
+```
+
+Rješenje:
+```cs
+public interface IMode{
+    public void Visit(Mathematics mathematics);
+    public void Visit(RPPOON rppoon);
+}
+
+public class Online : IMode
+{
+    public void Visit(Mathematics mathematics)
+    {
+        Console.WriteLine("Open ppt in online mode:");
+        mathematics.Teach();
+    }
+
+    public void Visit(RPPOON rppoon)
+    {
+        Console.WriteLine("Open VSCode in online mode:");
+        rppoon.Teach();
+    }
+}
+
+public abstract class Instructions{
+    protected string teacher;
+    protected IMode mode;
+    public Instructions(string teacher){
+        this.teacher = teacher;
+    }
+    public abstract void Teach();
+    public abstract void Accept(IMode mode);
+
+}
+
+public class Mathematics : Instructions
+{
+    public Mathematics(string teacher):base(teacher){}
+
+    public override void Accept(IMode mode)
+    {
+        base.mode = mode
+    }
+
+    public override void Teach()
+    {
+        mode.Visit();
+        Console.WriteLine($"{teacher} teaches Mathematics");
+    }
+}
+
+public class RPPOON : Instructions
+{
+    public RPPOON(string teacher):base(teacher){}
+    public override void Accept(IMode mode)
+    {
+        base.mode = mode
+    }
+    public override void Teach()
+    {
+        mode.Visit();
+        Console.WriteLine($"{teacher} teaches RPPOON");
+    }
+}
+
+public static class ClientCode{
+    public static void Run(){
+        List<Instructions> instructions = new List<Instructions>();
+        instructions.Add(new RPPOON("Filip Cica"));
+        instructions.Add(new Mathematics("Filip Cica"));
+        IMode mode = new Online();
+        instructions.ForEach(instruction=>{
+            instruction.Accept(mode);
+        });
+        instructions.ForEach(instruction=>{
+            instruction.Teach();
+        });
+    }
+}
+```
 ### Poveži klase i metode s ulogama u obrascu
+Zadatak:
+|Generic                    | Contextual                |
+|:--------------------------|:--------------------------|  
+|Visitor                    | IMode                     |
+|Concrete Visitor           | Accept(IMode mode)        |
+|Visit(e:ElementA)          | RPPOON                    |
+|Visit(e:ElementB)          | Mathematics               |
+|Element                    | Instructions              |
+|ElementA                   | Teach                     |
+|ElementB                   | Online                    |
+|Accept(v:Visitor)          | Visit(RPPOON...)          |
+|PerformTask                | Visit(Math...)            |
 ### Koja SOLID načela vidimo
+- SRP - svaki od posjetitelja je zaduzen za jedan tip rada
+- OCP - mozemo dodavati i elemente bez mjenjanja trenutnog koda
+- LSP - posjetitelji i elementi su medjusobno zamjenjivi
+- DIP - posjetitelji i elementi ovise o apstrakcijama
 ### Povezani obrasci
+Visitor se moze koristiti sa iteratorom i kompozitom
 ### Koraci implementacije
+1. Deklariraj Posjetiteljsko sučelje sa skupom Metoda posjećivanja. Jedna Metoda  za svaki Konkretan element klase koje postoji u programu.
+2. Deklariraj Sučelje elementa. Sučelje treba sadržavati Metode prihvaćanja koje primaju Posjetitelja kao argument
+3. Implementiraj Metode prihvaćanja u Konkretne elemente. Te metode moraju preko Posjetiteljskog sučelja pozvati Metodu posjećivanja
+4. Konkretni elementi rade sa Konkretnim posjetiteljima preko Posjetiteljskog sučelja. Posjetitelji u sebi sadrže reference na Konkretne elemente
+5. Za svako novo ponašanje stvara se novi konkretan posjetitelj
+6. Klijent stvara Posjetitelje i predaje ih Elementima preko Metoda prihvaćanja
 ### Kada koristiti
+- Koristi Posjetitelja kad je potrebno izvrsiti operaciju nad svim elementima kompleksne objekte strukture (e.g. stablo)
+- Koristi Posjetitelja kad je potrebno očistiti poslovnu logiku od pomoćnih ponašanja
+- Koristi Posjetitelja kad ponašanja imaju smisla samo u nekim klasama hijerarhije ali ne u drugima
 ### Posljedice
+#### Pozitivne
+- OCP - omogućuje dodavanje novih ponašanja koja mogu raditi sa objektima drugih klasa bez mijenjanja ovih klasa 
+- SRP - mozes premjestiti više verzija istog ponašanja u istu klasu
+- Može skupiti korisne podatke dok radi sa raznim kompleksnim objektima i strukturama.
+#### Negativne:
+- Kad se jedan element ukloni moraju se ažurirati svi posjetitelji
+- Nekad mogu manjkati u tome sto ne mogu pristupiti privatnim poljima i metodama elemenata sa kojim bi trebali raditi
 
 ## null objekt
 ### Dijagram
+![Null Objekt](./Images/NullObject.png)
 ### Definicija
-### Primjer
-### Poveži klase i metode s ulogama u obrascu
-### Koja SOLID načela vidimo
-### Povezani obrasci
-### Koraci implementacije
-### Kada koristiti
-### Posljedice
+Obrazac ponašanja koji služi kao alternativa null reference. Umjesto null reference koristi se objekt koji postuje sučelje a ne radi nista
 
-## Naredba-
-### Dijagram
-### Definicija
-### Primjer
-### Poveži klase i metode s ulogama u obrascu
-### Koja SOLID načela vidimo
-### Povezani obrasci
-### Koraci implementacije
-### Kada koristiti
-### Posljedice
+## Zadaci
+Za primjer dan izlistanjem koda odredite obrazac o kojemu je riječ i njegovu skupinu. Dopunite kod implementacijom koja nedostaje te napišite klijentski kod za ovaj primjer.
+### Zadatak1
+```cs
+ public interface Channel{
+        public void Add(INotifiable notifiable);
+        public void Remove(INotifiable notifiable);
+        public void Notify(string message);
+    }
 
-## Mediator-
-### Dijagram
-### Definicija
-### Primjer
-### Poveži klase i metode s ulogama u obrascu
-### Koja SOLID načela vidimo
-### Povezani obrasci
-### Koraci implementacije
-### Kada koristiti
-### Posljedice
+    public class User : INotifiable
+    {
+        public void PushNotification(string message)
+        {
+            Console.WriteLine(message);
+        }
+    }
 
-## Stanje-
-### Dijagram
-### Definicija
-### Primjer
-### Poveži klase i metode s ulogama u obrascu
-### Koja SOLID načela vidimo
-### Povezani obrasci
-### Koraci implementacije
-### Kada koristiti
-### Posljedice
+    public class Creator : Channel
+    {
+        List<INotifiable> notifiables;
+        public Creator(){
+            notifiables = new List<INotifiable>();
+        }
+    }
+```
+
+### Zadatak2
+```cs
+public class VacationConfigurator
+{
+    public string Destination { get; private set; }
+    private List<Activity> additionalActivities = new List<Activity>();
+
+    public decimal CalculateTotal()
+    {
+        return additionalActivities.Sum(it => it.Price);
+    }
+
+    public void AddExtra(Activity activity)
+    {
+        additionalActivities.Add(activity);
+    }
+
+    public void Remove(Activity activity)
+    {
+        additionalActivities.Remove(activity);
+    }
+
+    public void LoadPrevious(VacationConfiguration configuration)
+    {
+        Destination = configuration.GetDestination();
+        additionalActivities.Clear();
+        additionalActivities.AddRange(configuration.GetAdditionalActivities());
+    }
+
+    public VacationConfiguration Store()
+    {
+        return new VacationConfiguration(Destination, additionalActivities);
+    }
+}
+
+public class VacationConfiguration
+{
+    private string destination;
+    private List<Activity> additionalActivities;
+}
+
+public class ConfigurationManager
+{
+    private List<VacationConfiguration> configurations = new List<VacationConfiguration>();
+
+    public void AddConfiguration(VacationConfiguration configuration)
+    {
+        configurations.Add(configuration);
+    }
+
+    public void DeleteConfiguration(VacationConfiguration configuration)
+    {
+        configurations.Remove(configuration);
+    }
+
+    public VacationConfiguration GetConfiguration(int index)
+    {
+        return configurations[index];
+    }
+}
+```
+### Zadatak3
+```cs
+public abstract class Handler
+{
+    public Handler NextHandler;
+
+    public void SetNextHandler(Handler NextHandler)
+    {
+        this.NextHandler = NextHandler;
+    }
+    public abstract void DispatchNote(long requestedAmount);
+}
+
+public class HundredHandler : Handler
+{
+    public override void DispatchNote(long requestedAmount)
+    {
+        long numberofNotesToBeDispatched = requestedAmount / 100;
+        if (numberofNotesToBeDispatched > 0)
+        {
+            if (numberofNotesToBeDispatched > 1)
+            {
+                Console.WriteLine(numberofNotesToBeDispatched + " Hundred notes are dispatched by HundredHandler");
+            }
+            else
+            {
+                Console.WriteLine(numberofNotesToBeDispatched + " Hundred note is dispatched by HundredHandler");
+            }
+        }
+    }
+}
+public class TwoHunderedHandler:Handler{}
+public class FiveHunderedHandler:Handler{}
+```

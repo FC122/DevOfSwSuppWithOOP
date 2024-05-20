@@ -43,6 +43,8 @@ Skup definicija i edukacijskih primjera u svrhu učenja za kolegiji Razvoj progr
 
 [CodingDrills, Website](https://www.codingdrills.com/tutorial/design-patterns-tutorial/introduction-to-dp), 05.11.2024
 
+[DOT NET TUTORIALS, Website](https://dotnettutorials.net/course/csharp-dot-net-tutorials/), 05.19.2024.
+
 # Korištenje
 Kloniraj repo:
 ```
@@ -64,9 +66,7 @@ public static class Program{
 Filip Cica
 
 # TODO
-Visitor
-Null Objekt
-Naredba
-Mediator
-Stanje
-Dodati Zadatke iz 3,4,5
+- Visitor Example
+- Null Objekt Example
+- Dodati Zadatke iz 3,4,5
+- Naredba, Mediator, Stanje

@@ -125,6 +125,14 @@ Objasnite liskov princip. Dajte primjer pseudokoda koji ga narušava i objasnite
 
 
 
+Nacrtaj klasni dijagram Proxy obrasca, navedi dvije posljedice i napiši njegovu svrhu.
+
+
+
+
+
+
+
 Primjeri napravljeni na predavanju:
 ```c#
 //singleton class

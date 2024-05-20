@@ -329,8 +329,8 @@ Ne treba kroz ugradnju sucelja forsirati implementaciju metoda koje se ne korist
 Problem:
 ```cs
 interface IBirdable{
-    public virtual void Walk();
-    public virtual void Fly();
+    public void Walk();
+    public void Fly();
 }
 
 class Sparrow: IBirdable{
