@@ -625,7 +625,7 @@ Dobar izvor: https://sourcemaking.com/antipatterns/spaghetti-code
 Pojavljivanje istih ili sličnih dijelova kod na više mjesta u aplikaciju. Nastaje kad copy-pastamo kod iz jednog dijela aplikacije u drugi. Opasno jer kod koji kopiramo moze sadržavati bugove koje onda raznosimo po sustavu i kad treba popraviti taj bug potrebno ga je naći popraviti na  više mjesta.
 
 ### Magični brojevi i stringovi
-Zboj uporabe loših značenje konstanti je djelomično ili potpuno skriveno.
+Anti-obrazac magični brojevi odnosi se na upotrebu numeričkih konstanti direktno u kodu bez jasnog konteksta ili objašnjenja njihove svrhe. Predstavlja problem jer uzrokuje nepreglednost, otežava održavanje i povećava mogućnost grešaka.
 
 ### Realni tipovi za novac
 Kod korištenja realnih tipova podatak za predstavljanje novca dolazi do grešaka u zaokruživanju pri izvođenju operacija nad brojevima što stvara neželjen deficit ili suficit. Novce je potrebno predstaviti sa cjelobrojnim tipovima podataka ili koristiti posebne tipove za novce.

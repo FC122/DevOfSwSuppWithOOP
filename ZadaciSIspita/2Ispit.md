@@ -13,6 +13,7 @@ class ProductObject
         this.InStock = false;
     }
 }
+
 class HandlingOfProducts
 {
     List<ProductObject> prodsList; // List of prods.,
@@ -208,7 +209,7 @@ public class CompoundCheckerTests
 2. Previše Memenata može trošiti mnogo RAMa
 3. Pojednostavljuješ kod originatora time što implementiraš skrbnika koji se brine o povjesti stanja originatora
 
-# 8.Za primjer dan izlistanjem koda odredite obrazac o kojem je riječ i njegovu skupinu. Dopunite kod implementacijom koja nedostaje te napišite klijentski kod za ovaj primjer.
+# 8. Za primjer dan izlistanjem koda odredite obrazac o kojem je riječ i njegovu skupinu. Dopunite kod implementacijom koja nedostaje te napišite klijentski kod za ovaj primjer.
 ```cs
 public interface IAttack
 {
@@ -360,10 +361,7 @@ Obrazc je Kompozit
 - Koristiti kada program ima nekoliko različitih načina za obraditi zahtjev, ali nije unaprijed poznato kakav će se zahtjev pojaviti u sustavu
 - Koristiti kada je važno provesti obradu zahtjeva određenim redosljedom
 
-# 10. Koji je oblikovni obrazac prikladan za rjesavanje zadatka danog u nastavku i 
-u koju skupinu pripada. Navedite strukturu klasa te pripadajuce metode 
-metode/atribute koje biste koristili i njihove uloge.
-
+# 10. Koji je oblikovni obrazac prikladan za rjesavanje zadatka danog u nastavku i u koju skupinu pripada. Navedite strukturu klasa te pripadajuce metode metode/atribute koje biste koristili i njihove uloge.
 Radite na sustavu za analizu i praćenje proizvodnje električne energije.
 Trebate dizajnirati element sustava koji prati ukupne iznose trenutne 
 proizvodnje i trenutne potrošnje. U slučaju da dođe do značajnog rasta 
