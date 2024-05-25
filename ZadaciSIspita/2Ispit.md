@@ -352,10 +352,10 @@ Obrazc je Kompozit
 |Generic                    | Contextual                 |
 |:--------------------------|:---------------------------|
 |Klijent                    | Outlook (e-mail app)       |
-|Konkretan obrađivač        | Inbox handler              |
-|Obrađivač                  | Newsletter message handler |
-|Obrađivač                  | Promotional message handler|
-|Obrađivač                  | Work message handler       |
+|Obrađivač                  | Inbox handler              |
+|Konkretan obrađivač        | Newsletter message handler |
+|Konkretan obrađivač        | Promotional message handler|
+|Konkretan obrađivač        | Work message handler       |
 - Obrazac: Lanac odgovornosti
 - Skupina: Ponašajni
 - Koristiti kada program ima nekoliko različitih načina za obraditi zahtjev, ali nije unaprijed poznato kakav će se zahtjev pojaviti u sustavu
